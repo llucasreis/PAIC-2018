@@ -22,7 +22,7 @@
   * Calcular a distância utilizando o teorema de pitagoras
   * Em python, a distância euclidiana pode ser calculada por:
   ```python
-  dist = sqrt(pow(x1 - x2,2) + pow(y1 - y2,2))
+  dist = sqrt((x1 - x2)**2 + (y1 - y2)**2)
   ```
 
 Foi feita a implementação da filtragem colaborativa com a distância de Manhattan, junto com a recomendação para o usuário no código `users.py` 
