@@ -1,3 +1,6 @@
+from math import *
+import numpy as np
+
 users = {
 	"Angelica":{
 		"Blues Traveler": 3.5,
@@ -77,11 +80,12 @@ def computeNearestNeighbor(username, users):
 	distances = []
 	for user in users:
 		if user != username:
-			distance = manhattan(users[user], users[username])
+			#distance = manhattan(users[user], users[username])
+			distance = minkowski(users[user],users[username],2)
+			#2 -> distancia euclidiana
 			distances.append((distance, user))
 	distances.sort()
-	return distances
-
+	return dista
 def recommend(username, users):
 	# first find nearest neighbor
 	nearest = computeNearestNeighbor(username,users)[0][1]
@@ -104,10 +108,65 @@ def minkowski(rating1, rating2, r):
 	commonRatings = False
 	for key in rating1:
 		if key in rating2:
-			distance += 
-				pow(abs(rating1[key] - rating2[key]), r)
+			distance += pow(abs(rating1[key] - rating2[key]), r)
 			commonRatings = True
 	if commonRatings:
 		return pow(distance, 1/r)
 	else:
 		return 0 #Indicates no ratings in common
+
+def pearson(rating1, rating2):
+	sum_xy = 0
+	sum_x = 0
+	sum_y = 0
+	sum_x2 = 0
+	sum_y2 = 0
+	n = 0
+
+	for key in rating1:
+		if key in rating2:
+			n += 1
+			x = rating1[key]
+			y = rating2[key]
+			sum_xy += x * y
+			sum_x += x
+			sum_y += y
+			sum_x2 += x**2
+			sum_y2 += y**2
+	# if no ratings in common return 0
+	if n == 0:
+		return 0
+	# now compute denominator
+	denominator = (sqrt(sum_x2 - (sum_x**2) / n) * 
+		sqrt(sum_y2 - (sum_y**2) / n))
+
+	if denominator == 0:
+		return 0
+	else:
+  		return (sum_xy - (sum_x * sum_y) / n) / denominator
+
+def cosine(rating1,rating2):
+	sum_x = 0
+	sum_y = 0
+	xy = 0
+
+	for key in rating1:
+		sum_x += rating1[key]**2
+		if key not in rating2:
+			rating2[key] = 0.0
+
+	for key in rating2:
+		sum_y += rating2[key]**2
+		if key not in rating1:
+			rating1[key] = 0.0
+
+	x = sqrt(sum_x)
+	y = sqrt(sum_y)
+
+	for key in rating1:
+		xy += rating1[key]*rating2[key]
+
+	cosine = xy / (x * y)
+
+	return cosine
+	
