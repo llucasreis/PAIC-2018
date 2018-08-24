@@ -19,12 +19,12 @@ Para resolver este problema, pode-se utilizar a filtragem baseada em item.
 
 * Para calcular a similaridade entre itens, será utilizado similaridade de cosseno ajustado:
 
-  ![](/home/lucas/PAIC-2018/Estudos/anotacoes/slides/cosine-adjust.png)
+  ![](cosine-adjust.png)
   * *U* é o conjunto de todos os usuários que classificaram os itens *i* e *j* . Significa que a avaliação *R* do usuário *u* dá ao item *i* menos a avaliação média que o usuário deu para todos os itens que avaliou.
 
 * Antes de poder fazer a recomendação, precisa-se prever a avaliação que um usuário dará a um certo item. Utilizando a fórmula abaixo:
 
-  ![](/home/lucas/PAIC-2018/Estudos/anotacoes/slides/prevision.png)
+  ![](prevision.png)
 
   * *N* é cada um dos itens que o usuário *u* avaliou que são similares ao item *i*
 
@@ -38,11 +38,11 @@ Para resolver este problema, pode-se utilizar a filtragem baseada em item.
 
       * **Normalizar**
 
-      ![](/home/lucas/PAIC-2018/Estudos/anotacoes/slides/normalize.png)
+      ![](normalize.png)
 
       * **Desnormalizar**
 
-        ![](/home/lucas/PAIC-2018/Estudos/anotacoes/slides/unnormalize.png)
+        ![](unnormalize.png)
 
 
 A implementação da similaridade cosseno ajustada e a recomendação do usuário foram implementadas em `usersitem.py`.
