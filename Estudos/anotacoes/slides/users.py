@@ -85,7 +85,8 @@ def computeNearestNeighbor(username, users):
 			#2 -> distancia euclidiana
 			distances.append((distance, user))
 	distances.sort()
-	return dista
+	return distances
+	
 def recommend(username, users):
 	# first find nearest neighbor
 	nearest = computeNearestNeighbor(username,users)[0][1]
