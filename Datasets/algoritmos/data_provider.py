@@ -30,9 +30,9 @@ radical_words = {
 	'seguranca' : ['seguranca','polic','crim','violen','preso','presidi'],
 	'educacao' : ['educac','professor','escola','ensino','alun','faculdade','universi'],
 	'economia' : ['economi','produ','mercado','comerci','industr','desenvolv','terceiriz','setor','agro','agric'],
-	'cultura' : ['cultura','turis','parque','museu'],
+	'cultura' : ['cultura','turis','parque','museu','music','arte','cinema','danc'],
 	'tecnologia' : ['tecno','inovac','ciencia','cienti','conhecim','comput'],
-	'meio ambiente' : ['ambiente','florest','preserva','natur'],
+	'meio ambiente' : ['ambiente','florest','preserva','natur','desmatamento','polu','clima'],
 }
 
 #obtido em https://gist.github.com/boniattirodrigo/67429ada53b7337d2e79
