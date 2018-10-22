@@ -1,5 +1,5 @@
 from math import *
-import voters
+import voters_provider_2 as voters
 import numpy as np
 
 number_areas = 7
@@ -8,16 +8,11 @@ voters = voters.getVoters()
 def rateOfCandidates(voter):
 	for candidate in voter:
 		mean = 0
-		#for area,rating in voter[candidate].items():
 		rating = list(voter[candidate].values())
 		voter[candidate] = np.median(rating)
-		#print(np.mean(rating), np.median(rating))
-		#print(np.mean(list(voter[candidate].values())))
-		#	mean += rating
-		#voter[candidate] = round(mean/number_areas)
 	return voter
 
-def minkowski(rating1, rating2, r = 2):
+def minkowski(rating1, rating2, r = 1):
 	distance = 0
 	commonRatings = False
 	for key in rating1:
@@ -27,9 +22,9 @@ def minkowski(rating1, rating2, r = 2):
 	if commonRatings:
 		return pow(distance, 1/r)
 	else:
-		return 0 #Indicates no ratings in common
+		return 0
 
-def computeNearestNeighbor(votername):
+def neighbor(votername):
 	distances = []
 	for voter in voters:
 		if voter != votername:
@@ -41,10 +36,9 @@ def computeNearestNeighbor(votername):
 	return distances
 
 def recommend(votername):
-	# first find nearest neighbor
-	nearest = computeNearestNeighbor(votername)[0][1]
+	nearest = neighbor(votername)[0][1]
 	recommendations = []
-	# now find bands neighbor rated that user didn't
+
 	neighborRatings = voters[nearest]
 	voterRatings = voters[votername]
 
@@ -52,11 +46,10 @@ def recommend(votername):
 		if not candidate in voterRatings:
 			recommendations.append((candidate, neighborRatings[candidate]))
 
-	#using the fn sorted for variety - sort is more efficient
 	return sorted(recommendations,
 		key=lambda artistTuple: artistTuple[1],
 		reverse = True)	
 
 
-for voter,voter_rate in voters.items():
-	rateOfCandidates(voter_rate)
+#for voter,voter_rate in voters.items():
+#	rateOfCandidates(voter_rate)
