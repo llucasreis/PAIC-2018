@@ -18,6 +18,12 @@ Portanto, temos um dicionário por candidato de cada uma área de interesse, com
 
 **Obs.:** Não foi possível obter a proposta do candidato Eymael.
 
+### 2ª Versão
+
+A segunda versão do *dataset* foi criada em `data_provider_2.py` . Para buscar solucionar o problema da dependência da contagem de palavras perante ao tamanho da proposta, utilizou-se a métrica TF/IDF. Sua implementação foi realizada com sucesso e a saída é um dicionário composto pelo valor TF/IDF para cada área de cada candidato.
+
+**Problemas**: A métrica TF/IDF foi desenvolvida para ser mensurar o grau de importância em um conjunto de textos/artigos, ela foi adaptada para ser implementada para cada candidato individualmente, não se sabe ao certo se a métrica está funcionando com eficiência, para isso será feito testes e verificado o resultado. A primeira versão utiliza a biblioteca **textract** para realizar a extração de texto, para a segunda versão utilizou-se a **PyPDF2**, a primeira consegue extrair de todos os candidatos, mas a segunda apresenta problemas para algumas propostas, ela foi utilizada pois permitia obter o número de páginas e o texto por página.
+
 ## Filtragem Colaborativa
 
 ### 1ª Versão
