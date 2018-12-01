@@ -140,3 +140,15 @@ def getCand(candname):
 		tfidf[area] = df_tfidf['tfidf_' + str(area)].sum()
 
 	return tfidf
+
+
+def getDataset():
+    candidates = ['bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina']
+
+    dict_cand = {}
+    for cand in candidates:
+        dict_cand[cand] = getCand(cand)
+
+    df_cand = pd.DataFrame(data=dict_cand).T
+
+    return df_cand
