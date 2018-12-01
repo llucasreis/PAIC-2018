@@ -141,8 +141,7 @@ def getCand(candname):
 
 	return tfidf
 
-
-def getDataset():
+if __name__ == '__main__':
     candidates = ['bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina']
 
     dict_cand = {}
@@ -151,4 +150,6 @@ def getDataset():
 
     df_cand = pd.DataFrame(data=dict_cand).T
 
-    return df_cand
+    index_names = list(df_cand.index.values)
+
+    df_cand.to_csv('../../datasets/candidate.csv', index=False)

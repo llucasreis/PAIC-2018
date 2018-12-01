@@ -1,5 +1,6 @@
 import PyPDF2
 import textract
+import pandas as pd
 
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
@@ -71,3 +72,16 @@ def count_words_from(filename):
 					candidate[area] += value
 
 	return candidate
+
+if __name__ == "__main__":
+	candidates = ['alckmin', 'alvaro', 'amoedo', 'bolsonaro', 'boulos', 'ciro', 'daciolo', 'haddad', 'marina', 'meirelles']
+
+	dict_cand = {}
+	for cand in candidates:
+		dict_cand[cand] = count_words_from(cand)
+
+	df_cand = pd.DataFrame(data=dict_cand).T
+
+	index_names = list(df_cand.index.values)
+
+	df_cand.to_csv('../../datasets/candidate_2.csv', index=False)
