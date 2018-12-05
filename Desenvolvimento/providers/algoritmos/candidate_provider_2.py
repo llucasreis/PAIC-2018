@@ -150,6 +150,4 @@ if __name__ == '__main__':
 
     df_cand = pd.DataFrame(data=dict_cand).T
 
-    index_names = list(df_cand.index.values)
-
     df_cand.to_csv('../../datasets/candidate.csv', index=False)
