@@ -8,6 +8,7 @@ pd.options.display.max_colwidth = 10000
 import unicodedata
 import re
 import sys
+import pdftotext
 if not sys.warnoptions:
     import warnings
     warnings.simplefilter('ignore')
@@ -59,25 +60,42 @@ def count_words_from(filename):
     df['pagina'], df['texto'], df['total'] = [], [], []
     
     proposal = '../propostas-candidatos/proposta-' + filename + '.pdf'
-    
-    pdfFileObj = open(proposal, 'rb')
-    
-    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-    
-    num_pages = pdfReader.numPages
-    
-    text, count = "", 0
-    
-    while count < num_pages:
-        pageObj = pdfReader.getPage(count)
-        
-        count += 1
-        new_text = pageObj.extractText()
-        
-        df['pagina'].append(count)
+
+
+    #if filename == 'amoedo' or filename == 'alckmin':
+    with open(proposal, 'rb') as f:
+        pdf = pdftotext.PDF(f)
+
+    text = ""
+
+    for i in range(len(pdf)):
+        new_text = pdf[i]
+
+        df['pagina'].append(i+1)
         df['texto'].append(new_text)
-        
+
         text += new_text
+    '''
+    else:   
+        pdfFileObj = open(proposal, 'rb')
+    
+        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    
+        num_pages = pdfReader.numPages
+    
+        text, count = "", 0
+    
+        while count < num_pages:
+            pageObj = pdfReader.getPage(count)
+            
+            count += 1
+            new_text = pageObj.extractText()
+            
+            df['pagina'].append(count)
+            df['texto'].append(new_text)
+            
+            text += new_text
+    '''
     
     tokens = word_tokenize(text)
     
@@ -142,7 +160,7 @@ def getCand(candname):
 	return tfidf
 
 if __name__ == '__main__':
-    candidates = ['bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina']
+    candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina']
 
     dict_cand = {}
     for cand in candidates:
