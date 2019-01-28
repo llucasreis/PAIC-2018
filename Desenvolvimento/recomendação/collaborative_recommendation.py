@@ -1,6 +1,7 @@
 from math import *
 import numpy as np
 import pandas as pd
+from collections import Counter
 
 df = pd.read_csv('../datasets/dados-pesquisa/avaliacao.csv')
 df.drop(['Timestamp'],axis=1,inplace=True)
@@ -38,30 +39,40 @@ def neighbor(votername):
 			distances.append((distance, voter))
 
 	return sorted(distances,
-		key=lambda voterTuple: voterTuple[1])
+		key=lambda voterTuple: voterTuple[0])
 
-def listOfRecommendations(votername, nearestNeighbor = 0):
-	i = nearestNeighbor
 
-	nearest = neighbor(votername)[i][1]
+def listOfRecommendations(votername):
 
+	k_nearest = neighbor(votername)[:7]
+	nearest_neighbors = [voter[1] for voter in k_nearest]
+
+	voter_ratings = new_df.loc[votername]
+
+	candidate_counter, score_counter = [], {}
+
+	for voter in nearest_neighbors:
+		neighbor_ratings = new_df.loc[voter]
+
+		for candidate in neighbor_ratings.keys():
+			if isnan(voter_ratings[candidate]) and not isnan(neighbor_ratings[candidate]):
+
+				candidate_counter.append(candidate)
+
+				if score_counter.get(candidate) is None:
+					score_counter[candidate] = neighbor_ratings[candidate]
+				else:
+					score_counter[candidate] += neighbor_ratings[candidate]
+
+	candidate_counter = Counter(candidate_counter)
 	recomendations = []
 
-	neighborRatings = new_df.loc[nearest]
-	voterRatings = new_df.loc[votername]
-
-	for candidate in neighborRatings.keys():
-		if isnan(voterRatings[candidate]) and not isnan(neighborRatings[candidate]):
-
-			recomendations.append((candidate, neighborRatings[candidate]))
-
-	while len(recomendations) == 0:
-		i+=1
-		recomendations = listOfRecommendations(votername, i)
+	for candidate in candidate_counter:
+		recomendations.append((candidate, score_counter[candidate] / candidate_counter[candidate]))
 
 	return sorted(recomendations,
-		key=lambda candidateTuple: candidateTuple[1],
-		reverse=True)
+			key=lambda candidateTuple: candidateTuple[1],
+			reverse=True)
 
 def recommend(userRating):
 	for candidate in list(new_df.columns):

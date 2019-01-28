@@ -35,24 +35,11 @@ def minkowski(rating1, rating2, r=1):
 	else:
 		return float('Inf')
 
-'''
-def recommend(userRating):
-	distances = []
-
-	for candidate in dict_cand:
-
-		distance = minkowski(dict_cand[candidate], userRating)
-		distances.append((candidate, distance))
-
-	return sorted(distances,
-		key=lambda candidateTuple: candidateTuple[1])
-'''
-
 def recommend(col_recommendations, userRating):
 
 	distances = []
 
-	for candidate, score in col_recommendations:
+	for candidate,score in col_recommendations:
 		if candidate in dict_cand.keys():
 
 			distance = minkowski(dict_cand[candidate], userRating)
