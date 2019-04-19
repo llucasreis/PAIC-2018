@@ -1,4 +1,4 @@
-import PyPDF2
+#import PyPDF2
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from collections import Counter
@@ -7,11 +7,7 @@ import pandas as pd
 pd.options.display.max_colwidth = 10000
 import unicodedata
 import re
-import sys
 import pdftotext
-if not sys.warnoptions:
-    import warnings
-    warnings.simplefilter('ignore')
 
 punctuations = ['(',')',';','-','!','.',':','[',']',',','"',' ']
 
@@ -29,9 +25,9 @@ radical_words = {
     'saude' : ['saude','hosp','medic','remedio','doen','enferm'],
     'seguranca' : ['seguranca','polic','crim','violen','preso','presidi'],
     'educacao' : ['educac','professor','escola','ensino','alun','faculdade','universi'],
-    'economia' : ['economi','produ','mercado','comerci','industr','desenvolv','terceiriz','setor','agro','agric'],
+    'economia' : ['economi','produ','mercado','comerci','industr','desenvolv','terceiriz','setor','agro','agric', 'divida'],
     'cultura' : ['cultura','turis','parque','museu','music','arte','cinema','danc'],
-    'tecnologia' : ['tecno','inovac','ciencia','cienti','conhecim','comput'],
+    'tecnologia' : ['tecno','inovac','ciencia','cienti','conhecim','comput', 'inform'],
     'meio ambiente' : ['ambiente','florest','preserva','natur','desmatamento','polu','clima'],
 }
 
@@ -160,7 +156,7 @@ def getCand(candname):
 	return tfidf
 
 if __name__ == '__main__':
-    candidates = ['alckmin', 'amoedo', 'bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina']
+    candidates = ['alckmin', 'alvaro', 'amoedo', 'bolsonaro', 'ciro', 'daciolo','boulos', 'haddad', 'marina', 'meirelles']
 
     dict_cand = {}
     for cand in candidates:
